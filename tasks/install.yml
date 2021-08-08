@@ -1,0 +1,11 @@
+- name: Install httpd
+  yum:
+          name: "{{ web_svc }}"
+          state: installed
+
+
+
+- name: Start  httpd
+  service:
+          name: "{{ web_svc }}"
+          state: started

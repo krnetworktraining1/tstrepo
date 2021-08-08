@@ -1,0 +1,31 @@
+- include_vars: test.yml
+
+- name: Include Install.yml
+  import_tasks: install.yml
+
+
+- name: Include fw.yml
+  import_tasks: fw.yml
+
+
+- name: Create document root
+  file:
+          path: "{{ web_root }}" 
+          state: directory
+
+
+- name: Copy index.html page into "{{ web_root }}"
+  copy:
+          src: content/
+          dest: "{{ web_root }}" 
+
+
+
+
+
+- name: Deploy httpd.conf.j2  
+  template:
+          src: web.conf.j2
+          dest: "{{ web_config }}/web.conf"
+  notify: apache_restart
+
